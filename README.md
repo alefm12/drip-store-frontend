@@ -6,7 +6,9 @@ e o design do Figma.
 
 **Desenvolvido por:** ALEF MATHEUS TEIXEIRA DE SOUSA
 
-**Deploy:** _[link da Vercel/Netlify, se publicado]_
+**Site publicado:** https://drip-store-frontend-xi.vercel.app
+
+**API usada pelo site:** https://drip-store-backend-mu.vercel.app ([documentação Swagger](https://drip-store-backend-mu.vercel.app/docs))
 
 ## Tecnologias
 
