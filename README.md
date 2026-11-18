@@ -48,6 +48,9 @@ Se a API estiver fora do ar, o site volta automaticamente para os dados locais.
 | `/` | Página inicial: galeria, coleções em destaque e produtos em alta |
 | `/products` (`/produtos`) | Listagem com ordenação, filtros e busca (`?filter=termo`) |
 | `/product/:id` | Visualização do produto: galeria com miniaturas, buy box e recomendados |
+| `/login` e `/cadastro` | Entrar e criar conta (API do back-end) |
+| `/carrinho` | Carrinho com resumo do pedido |
+| `/meus-pedidos` | Histórico de pedidos do usuário logado |
 
 ## Componentes
 
@@ -78,4 +81,8 @@ src/
 - Galeria com setas (desabilitadas no início/fim), animação de deslize e miniaturas
 - Ordenação por menor/maior preço e filtros por marca, categoria, gênero e estado — funcionando de verdade
 - Seleção de tamanho e cor com borda `primary`
+- **Carrinho de compras**: COMPRAR exige tamanho, contador no ícone, quantidades, frete grátis acima de R$ 300, total parcelado
+- **Login e cadastro reais** consumindo a API do back-end (JWT), com mensagens de erro da API
+- **Meus Pedidos**: finalizar a compra (exige login) gera o pedido no histórico do usuário
+- Home no estilo do Figma: banner com chamada, coleções com selo de desconto, categorias com ícones e bloco "Oferta especial"
 - Layout responsivo (desktop, tablet e celular, com menu hambúrguer)

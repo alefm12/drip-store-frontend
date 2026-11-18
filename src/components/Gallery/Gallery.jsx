@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import arrowLeft from '../../assets/arrow-left.svg';
 import arrowRight from '../../assets/arrow-right.svg';
 import { toPx } from '../../utils/format';
@@ -44,14 +45,27 @@ export default function Gallery({ images = [], width, height, radius = '0px', sh
       >
         <div className="gallery__track" style={{ transform: `translateX(-${current * 100}%)` }}>
           {images.map((image, index) => (
-            <img
-              key={image.src + index}
-              src={image.src}
-              alt={`Imagem ${index + 1} de ${images.length}`}
-              className="gallery__image"
-              aria-hidden={index !== current}
-              loading={index === 0 ? 'eager' : 'lazy'}
-            />
+            <div key={image.src + index} className="gallery__slide" aria-hidden={index !== current}>
+              <img
+                src={image.src}
+                alt={image.title || `Imagem ${index + 1} de ${images.length}`}
+                className="gallery__image"
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+              {/* legenda opcional: { src, eyebrow, title, text, cta: { text, href } } */}
+              {image.title && (
+                <div className="gallery__caption">
+                  {image.eyebrow && <span className="gallery__eyebrow">{image.eyebrow}</span>}
+                  <h2 className="gallery__title">{image.title}</h2>
+                  {image.text && <p className="gallery__text">{image.text}</p>}
+                  {image.cta && (
+                    <Link to={image.cta.href} className="gallery__cta" tabIndex={index === current ? 0 : -1}>
+                      {image.cta.text}
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 

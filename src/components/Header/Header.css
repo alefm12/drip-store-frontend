@@ -86,6 +86,17 @@
   background: var(--tertiary);
 }
 
+.header__greeting {
+  font-size: 16px;
+  color: var(--dark-gray-2);
+  white-space: nowrap;
+}
+
+.header__logout {
+  border: 0;
+  background: none;
+}
+
 /* Carrinho com indicativo */
 .header__cart {
   position: relative;
@@ -198,12 +209,24 @@
   }
 
   .header__actions {
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  .header__login {
+    width: 84px;
+    height: 36px;
+  }
+
+  .header__signup,
+  .header__greeting {
     display: none;
   }
 
-  .header__cart {
-    margin-left: auto;
+  .header__logout {
+    display: inline;
   }
+
 
   .header__nav {
     display: none;

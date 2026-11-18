@@ -8,20 +8,33 @@ import Section from '../components/Section/Section';
 import ProductListing from '../components/ProductListing/ProductListing';
 import useProducts from '../hooks/useProducts';
 import { getProduct } from '../services/api';
+import { useCart } from '../context/CartContext';
 import './pages.css';
 
 export default function ProductViewPage() {
   const { id } = useParams();
   const { products } = useProducts();
   const [product, setProduct] = useState(undefined); // undefined = carregando, null = não encontrado
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(null);
+  const [selection, setSelection] = useState({ size: null, color: null });
+  const { addItem } = useCart();
 
   useEffect(() => {
     setProduct(undefined);
-    setMessage('');
+    setMessage(null);
+    setSelection({ size: null, color: null });
     getProduct(id).then(setProduct);
     window.scrollTo(0, 0);
   }, [id]);
+
+  const handleBuy = () => {
+    if (!selection.size) {
+      setMessage({ type: 'error', text: 'Escolha um tamanho antes de comprar.' });
+      return;
+    }
+    addItem(product, selection);
+    setMessage({ type: 'success', text: `${product.name} (tam. ${selection.size}) foi adicionado ao carrinho!` });
+  };
 
   const recommended = products.filter((p) => String(p.id) !== String(id)).slice(0, 4);
 
@@ -66,15 +79,35 @@ export default function ProductViewPage() {
             price={product.price}
             priceDiscount={product.priceDiscount}
             description={product.description}
-            onBuy={() => setMessage('Produto adicionado ao carrinho!')}
+            onBuy={handleBuy}
           >
-            <ProductOptions title="Tamanho" options={product.options.sizes} shape="square" radius="4px" type="text" />
-            <ProductOptions title="Cor" options={product.options.colors} shape="circle" type="color" />
+            <ProductOptions
+              key={`size-${product.id}`}
+              title="Tamanho"
+              options={product.options.sizes}
+              shape="square"
+              radius="4px"
+              type="text"
+              onChange={(size) => setSelection((s) => ({ ...s, size }))}
+            />
+            <ProductOptions
+              key={`color-${product.id}`}
+              title="Cor"
+              options={product.options.colors}
+              shape="circle"
+              type="color"
+              onChange={(color) => setSelection((s) => ({ ...s, color }))}
+            />
           </BuyBox>
         </div>
         {message && (
-          <p className="product-view__message" role="status">
-            {message}
+          <p className={`product-view__message product-view__message--${message.type}`} role="status">
+            {message.text}
+            {message.type === 'success' && (
+              <Link to="/carrinho" className="product-view__message-link">
+                Ver carrinho →
+              </Link>
+            )}
           </p>
         )}
 

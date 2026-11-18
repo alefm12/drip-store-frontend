@@ -35,8 +35,43 @@
 }
 
 .home__collection {
+  position: relative;
   overflow: hidden;
   border-radius: 4px;
+}
+
+.home__collection-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 14px;
+  border-radius: 29px;
+  background: #e7ff86;
+  color: var(--dark-gray-2);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.home__collection-cta {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: grid;
+  place-items: center;
+  width: 150px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.home__collection-cta:hover {
+  background: var(--primary);
+  color: var(--white);
 }
 
 .home__collection img {
@@ -147,12 +182,27 @@
 }
 
 .product-view__message {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
   margin-bottom: 40px;
   padding: 12px 16px;
   border-radius: 4px;
-  background: var(--success);
   color: var(--white);
   font-weight: 700;
+}
+
+.product-view__message--success {
+  background: var(--success);
+}
+
+.product-view__message--error {
+  background: var(--error);
+}
+
+.product-view__message-link {
+  color: var(--white);
 }
 
 @media (max-width: 1024px) {
@@ -200,5 +250,10 @@
 
   .home__collections {
     grid-template-columns: 1fr;
+  }
+
+  /* banner mais alto no celular para caber o texto */
+  .home__gallery .gallery__frame {
+    aspect-ratio: 4 / 5 !important;
   }
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import miniCart from '../../assets/mini-cart.svg';
+import { useAuth } from '../../context/AuthContext';
+import { useCart } from '../../context/CartContext';
 import './Header.css';
 
 const NAV_LINKS = [
@@ -23,6 +25,8 @@ export default function Header() {
   const [searchParams] = useSearchParams();
   const [term, setTerm] = useState(searchParams.get('filter') || '');
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const { summary } = useCart();
 
   // mantém o campo sincronizado ao navegar
   useEffect(() => setTerm(searchParams.get('filter') || ''), [searchParams]);
@@ -69,18 +73,31 @@ export default function Header() {
         </form>
 
         <div className="header__actions">
-          <Link to="/cadastro" className="header__signup">
-            Cadastre-se
-          </Link>
-          <Link to="/login" className="header__login">
-            Entrar
-          </Link>
+          {user ? (
+            <>
+              <span className="header__greeting">
+                Olá, <strong>{user.firstname}</strong>
+              </span>
+              <button type="button" className="header__signup header__logout" onClick={logout}>
+                Sair
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/cadastro" className="header__signup">
+                Cadastre-se
+              </Link>
+              <Link to="/login" className="header__login">
+                Entrar
+              </Link>
+            </>
+          )}
         </div>
 
-        <span className="header__cart" aria-label="Carrinho com 2 itens">
+        <Link to="/carrinho" className="header__cart" aria-label={`Carrinho com ${summary.count} itens`}>
           <img src={miniCart} alt="" width={24} height={24} />
-          <span className="header__cart-badge">2</span>
-        </span>
+          {summary.count > 0 && <span className="header__cart-badge">{summary.count}</span>}
+        </Link>
       </div>
 
       <nav className={`container header__nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navegação principal">

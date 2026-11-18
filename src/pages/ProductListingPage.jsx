@@ -41,7 +41,7 @@ export default function ProductListingPage() {
   const visible = useMemo(() => {
     const q = normalize(term);
     return products
-      .filter((p) => !q || normalize(`${p.name} ${p.brand} ${p.category}`).includes(q))
+      .filter((p) => !q || normalize(`${p.name} ${p.brand} ${p.category} ${p.type}`).includes(q))
       .filter((p) => Object.entries(filters).every(([key, values]) => !values.length || values.includes(p[key])))
       .sort(SORTS[sort].fn);
   }, [products, term, filters, sort]);

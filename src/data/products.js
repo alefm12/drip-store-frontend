@@ -22,6 +22,7 @@ export const products = Array.from({ length: 15 }, (_, i) => {
     price,
     priceDiscount: hasDiscount ? Math.round(price * 0.7 * 100) / 100 : undefined,
     brand,
+    type: 'Tênis',
     category: CATEGORIES[i % CATEGORIES.length],
     gender: GENDERS[i % GENDERS.length],
     condition: i % 4 === 0 ? 'Usado' : 'Novo',
@@ -49,10 +50,31 @@ export const filterGroups = [
   },
 ];
 
-export const homeSlides = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({ src: `/home-slide-${n}.jpeg` }));
+const SLIDE_TEXTS = [
+  { eyebrow: 'Melhores ofertas personalizadas', title: 'Queima de estoque Nike 🔥' },
+  { eyebrow: 'Coleção nova', title: 'Estilo para todos os passos' },
+  { eyebrow: 'Só esta semana', title: 'Até 30% OFF em tênis' },
+  { eyebrow: 'Frete grátis', title: 'Nas compras acima de R$ 300' },
+];
+
+// Slides da home: imagens da pasta public + texto do banner (legenda opcional da <Gallery />)
+export const homeSlides = [1, 2, 3, 4, 5, 6, 7, 8].map((n, i) => ({
+  src: `/home-slide-${n}.jpeg`,
+  ...SLIDE_TEXTS[i % SLIDE_TEXTS.length],
+  text: 'Consequat culpa exercitation mollit nisi excepteur do do tempor laboris eiusmod irure consectetur.',
+  cta: { text: 'Ver Ofertas', href: '/products' },
+}));
 
 export const collections = [
-  { src: '/collection-1.png', alt: 'Novo drop Supreme' },
-  { src: '/collection-2.png', alt: 'Coleção Adidas' },
-  { src: '/collection-3.png', alt: 'Novo Beats Bass' },
+  { src: '/collection-1.png', alt: 'Novo drop Supreme', discount: 30, filter: 'camisetas' },
+  { src: '/collection-2.png', alt: 'Coleção Adidas', discount: 30, filter: 'adidas' },
+  { src: '/collection-3.png', alt: 'Novo Beats Bass', discount: 30, filter: 'headphones' },
+];
+
+export const featuredCategories = [
+  { name: 'Camisetas', icon: 'shirt', filter: 'camisetas' },
+  { name: 'Calças', icon: 'pants', filter: 'calcas' },
+  { name: 'Bonés', icon: 'cap', filter: 'bones' },
+  { name: 'Headphones', icon: 'headphones', filter: 'headphones' },
+  { name: 'Tênis', icon: 'sneaker', filter: 'tenis' },
 ];
