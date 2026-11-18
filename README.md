@@ -4,7 +4,7 @@ Loja virtual **Drip Store** feita em React para o projeto final de Front-end da 
 seguindo a documentação de [digitalcollegebr/projeto-digital-store](https://github.com/digitalcollegebr/projeto-digital-store)
 e o design do Figma.
 
-**Equipe:** _[nome completo de cada integrante]_
+**Desenvolvido por:** ALEF MATHEUS TEIXEIRA DE SOUSA
 
 **Deploy:** _[link da Vercel/Netlify, se publicado]_
 
